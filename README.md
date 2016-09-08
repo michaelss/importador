@@ -7,8 +7,9 @@ Este projeto é um utilitário para buscar informações do banco de dados e esc
 
 O projeto não usa nenhum gerenciador de build/dependências. Assim, a geração do .jar final é feita com as linhas abaixo.
 
-javac -cp lib/ojdbc6.jar br/jus/treto/extrator/Main.java
-jar cvfm extrator.jar Manifest.txt br/jus/treto/extrator/Main.class lib/*
+``$ javac -cp lib/ojdbc6.jar br/jus/treto/extrator/Main.java``
+
+``$ jar cvfm extrator.jar Manifest.txt br/jus/treto/extrator/Main.class lib/*``
 
 ## Criação do Manifest
 
@@ -16,4 +17,4 @@ Basta adicionar o caminho da classe principal e das libs que estarão no classpa
 
 ## Execução
 
-java -jar extrator.jar \<parametros>
+``java -jar extrator.jar <parametros>``
