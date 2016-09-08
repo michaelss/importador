@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: lib/ojdbc6.jar
+Main-Class: br.jus.treto.extrator.Main
