@@ -9,7 +9,7 @@ O projeto não usa nenhum gerenciador de build/dependências. Assim, a geração
 
 ``javac -cp lib/ojdbc6.jar br/jus/treto/extrator/Main.java``
 
-``jar cvfm extrator.jar Manifest.txt br/jus/treto/extrator/Main.class lib/*``
+``jar cvfm extrator.jar Manifest.txt br/jus/treto/extrator/Main.class lib``
 
 ## Criação do Manifest
 
