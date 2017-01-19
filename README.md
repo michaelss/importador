@@ -21,6 +21,8 @@ ou
 
 O segundo, além de gerar o .jar no diretório target, também o copiará para o seu repositório local do Maven, localizado em ~/.m2/repository/
 
+**O nome do arquivo .jar gerado será extrator-<versao>-jar-with-dependencies.jar**
+
 ## Execução
 
 ``java -jar extrator.jar <parametros>``
