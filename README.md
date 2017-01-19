@@ -5,15 +5,15 @@ Este projeto é um utilitário para buscar informações do banco de dados e esc
 
 ## Geração do arquivo .jar
 
-O projeto não usa nenhum gerenciador de build/dependências. Assim, a geração do .jar final é feita com as linhas abaixo.
+O projeto usa o [Apache Maven](http://maven.apache.org) como gerenciador de build/dependências. Assim, para gerar o arquivo .jar, use um dos comandos abaixo.
 
-``javac -cp lib/ojdbc6.jar br/jus/treto/extrator/Main.java``
+``# mvn clean package``
 
-``jar cvfm extrator.jar Manifest.txt br/jus/treto/extrator/Main.class lib``
+ou 
 
-## Criação do Manifest
+``# mvn clean install``
 
-Basta adicionar o caminho da classe principal e das libs que estarão no classpath (no caso, apenas a ojdbc6.jar).
+O segundo, além de gerar o .jar no diretório target, também o copiará para o seu repositório local do Maven, localizado em ~/.m2/repository/
 
 ## Execução
 
