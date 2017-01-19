@@ -5,7 +5,13 @@ Este projeto é um utilitário para buscar informações do banco de dados e esc
 
 ## Geração do arquivo .jar
 
-O projeto usa o [Apache Maven](http://maven.apache.org) como gerenciador de build/dependências. Assim, para gerar o arquivo .jar, use um dos comandos abaixo.
+O projeto usa o [Apache Maven](http://maven.apache.org) como gerenciador de build/dependências. 
+
+Como o BD adotado é o Oracle, a dependência para ele foi adicionada no pom.xml. No entanto, tal dependência não está disponível em repositórios públicos. 
+Portanto, instale-a no seu repositório local (~/.m2/repository). [Este post mostra como fazer isso](http://michaelss.org/post/138926569132/instalando-lib-no-reposit%C3%B3rio-maven-local). 
+Tanto ``groupId`` quanto ``artifactId`` terão o valor “ojdbc”, enquando ``version`` será “14”.
+
+Após isso, para gerar o arquivo .jar, use um dos comandos abaixo.
 
 ``# mvn clean package``
 
