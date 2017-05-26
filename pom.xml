@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.jus.treto</groupId>
-	<artifactId>extrator</artifactId>
-	<version>1.1.0</version>
+	<artifactId>importador</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>extrator</name>
-	<url>http://github.com/michaelss/extrator</url>
+	<url>http://github.com/michaelss/importador</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -44,7 +44,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>br.jus.treto.extrator.App</mainClass>
+							<mainClass>br.jus.treto.importador.App</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
