@@ -1,28 +1,26 @@
-# Extrator
+<<<<<<< HEAD
+# Importador
 
-Este projeto é um utilitário para buscar informações do banco de dados e escrevê-las em um arquivo de texto. A motivação inicial para este projeto foi a extração de milhares de registros do banco de dados para montar um dos relatórios para o CNJ.
+This project is a template to help import large CSV files into Oracle databases. Table e column names must be adjusted to fit specific needs.
 
+## .jar file generation
 
-## Geração do arquivo .jar
+The project adopts [Apache Maven](http://maven.apache.org) as build/dependencies manager. 
 
-O projeto usa o [Apache Maven](http://maven.apache.org) como gerenciador de build/dependências. 
+The dependency of ojdbc (Oracle JDBC-compliant driver) was added to pom.xml. However, it is not available on public repositories. So, install it in your local Maven repository (~/.m2/repository). [This post shows how to do it](http://michaelss.org/post/138926569132/instalando-lib-no-reposit%C3%B3rio-maven-local). 
 
-Como o BD adotado é o Oracle, a dependência para ele foi adicionada no pom.xml. No entanto, tal dependência não está disponível em repositórios públicos. 
-Portanto, instale-a no seu repositório local (~/.m2/repository). [Este post mostra como fazer isso](http://michaelss.org/post/138926569132/instalando-lib-no-reposit%C3%B3rio-maven-local). 
-Tanto ``groupId`` quanto ``artifactId`` terão o valor “ojdbc”, enquando ``version`` será “14”.
-
-Após isso, para gerar o arquivo .jar, use um dos comandos abaixo.
+To generate the .jar file, use one of the following commands.
 
 ``# mvn clean package``
 
-ou 
+or 
 
 ``# mvn clean install``
 
-O segundo, além de gerar o .jar no diretório target, também o copiará para o seu repositório local do Maven, localizado em ~/.m2/repository/
+The second command will place a copy of the .jar file in your local Maven repository.
 
-**O nome do arquivo .jar gerado será extrator-<versao>-jar-with-dependencies.jar**
+**The .jar file name will be importador-<version>-jar-with-dependencies.jar**
 
-## Execução
+## Running
 
-``java -jar extrator.jar <parametros>``
+``java -jar importador-<version>-jar-with-dependencies.jar <parameters>``
