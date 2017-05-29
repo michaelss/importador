@@ -7,14 +7,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import oracle.jdbc.OracleConnection;
+import org.apache.commons.io.FileUtils;
 
 public class App {
-	private OracleConnection connection;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		System.out.println("-------------------------------------------------------");
 		System.out.println(" Utilitário de importação de dados");
@@ -59,54 +61,40 @@ public class App {
 		acesso.lerArquivo(props, acesso);
 	}
 
-	private void lerArquivo(final Properties props, App acesso) {
+	private void lerArquivo(final Properties props, App acesso) throws IOException {
 		final String nomeArquivo = props.getProperty("arquivo");
 
-        try {
-            File f = new File(nomeArquivo);
-            BufferedReader b = new BufferedReader(new FileReader(f));
-            String readLine = "";
-            System.out.println("Reading file using Buffered Reader");
+        final File f = new File(nomeArquivo);
+        final List<String> lines = FileUtils.readLines(f, "UTF-8");
 
-            Class.forName("oracle.jdbc.OracleDriver");
-            this.connection = (OracleConnection) DriverManager.getConnection("jdbc:oracle:thin:@" + props.getProperty("host") + ":1521:" + props.getProperty("sid"),
-                    props.getProperty("usuario"), props.getProperty("senha"));
+        final int numThreads = 50;
+        final int sublinhas = lines.size() / numThreads;
+        System.out.println("Sublinhas: " + sublinhas);
 
-            final String sql = "INSERT INTO AUTO_ATEN_LOCAIS_VOTA_(AUTO_ATEN_LOCAIS_VOTA_ID, CD_PROCESSO_ELEITORAL, CD_PLEITO, SG_UF, CD_LOCALIDADE_TSE, NM_LOCALIDADE, NR_ZONA, NR_SECAO, ST_SECAO_USA_LOCVOT_TEMP, NR_LOCVOT, NM_LOCVOT, DS_ENDERECO) " +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            int i = 1;
-            while ((readLine = b.readLine()) != null) {
-                String[] params = readLine.replace("\"", "").split(";");
-                System.out.println(i++);
-                acesso.executeInsert(sql, params);
-            }
+        System.out.println("Iniciou... " + new Date().toString());
 
-            acesso.close();
+        for (int i = 0; i < numThreads; i++) {
 
-        } catch (IOException | SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+                new Insersor(i+1, props.getProperty("host"),
+                        props.getProperty("sid"),
+                        props.getProperty("usuario"),
+                        props.getProperty("senha"),
+                        lines.subList(i * sublinhas, ((i + 1) * sublinhas))).start();
+
+//            System.out.printf("%d - %d \n", i * sublinhas, ((i + 1) * sublinhas));
+
         }
 
+        int resto = lines.size() % numThreads;
 
-	}
-
-	public void close() throws SQLException {
-		if (!this.connection.isClosed()) {
-			this.connection.close();
-		}
-	}
-
-    public void executeInsert(String sql, String[] params)
-            throws SQLException, ClassNotFoundException {
-
-        PreparedStatement statement = this.connection.prepareStatement(sql);
-
-        for (int i = 0; i < 12; i++) {
-            statement.setString(i+1, params[i]);
+        if (resto != 0) {
+//            System.out.printf("%d - %d \n", lines.size() - resto, lines.size());
+            new Insersor(numThreads, props.getProperty("host"),
+                    props.getProperty("sid"),
+                    props.getProperty("usuario"),
+                    props.getProperty("senha"),
+                    lines.subList(lines.size() - resto, lines.size())).start();
         }
-
-        statement.executeUpdate();
-        statement.close();
     }
 
 }
