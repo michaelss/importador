@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 # Importador
 
-This project is a template to help import large CSV files into Oracle databases. Table e column names must be adjusted to fit specific needs.
+This project is a template to help import large CSV files into Oracle databases. Table e column names must be adjusted to fit specific needs. The solution relies on threads and batch inserts to achieve the task in reasonable time. Tests (in a Mac mini with a 2,8GHz Intel Core i5 and SSD) could parse and save a 700k line long file in 1 minute and 33 seconds. 
 
 ## .jar file generation
 
